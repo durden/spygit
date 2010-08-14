@@ -7,8 +7,20 @@
          <title> {% block title %} Spygit {% endblock %} </title>
      </head>
      <body>
+        <ul id="nav">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="#">Projects</a></li>
+        </ul>
          <div id="header">
-             <h1>Spygit</h1>
+            <h1 class="logo">Spygit</h1>
+            <form action="#">
+                <fieldset id="form">
+                    <legend></legend>
+                    <input type="text" id="repo" name="repo" value="https://durden@github.com/durden/spygit.git" class="field"><br>
+                    <input type="submit" class="button">
+                </fieldset>
+            </form>
          </div>
 
         <div id="content">

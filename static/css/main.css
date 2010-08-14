@@ -6,9 +6,82 @@ body {
     color: #000000;
 }
 
+ul#nav {
+    margin: 10px 10px 0px 0px;
+    padding: 0px;
+    text-align: right;
+}
+
+#nav li {
+    list-style-type: 0px;
+    display: inline;
+    margin: 0px 15px 0px 0px;
+    padding: 0px;
+}
 
 #header {
-    background: #ccc url(/static/img/header.jpg) repeat-x;
+    height: 421px;
+    background: #000 url(/static/img/header.jpeg) repeat-x;
     padding: 0px;
     margin: 0px;
 }
+
+fieldset#form {
+    position: relative;
+    top: 120px;
+    border: 0px;
+}
+
+#form input.field {
+    height: 45px;
+    width: 500px;
+    font-size: 16pt;
+}
+
+#form input.button {
+    width: 100px;
+    margin: 20px 0px 0px 0px;
+    position: relative;
+    left: 400px;
+}
+
+#content {
+    clear: both;
+}
+
+#footer {
+    text-align: center;
+    font-size: 11pt;
+}
+
+h1.logo {
+    position: relative;
+    height: 0px;
+    width: 503px;
+    top: 100px;
+    background: #000 url(/static/img/logo.jpeg) no-repeat;
+    float: left;
+    padding: 110px 0 0 0;
+    overflow: hidden;
+}
+
+h1 {
+    color: #3a9f68;
+    font-size: 18pt;
+}
+
+h2 {
+    color: #3a9f68;
+    font-size: 16pt;
+}
+
+h3 {
+    color: #3a9f68;
+    font-size: 15pt;
+}
+
+h4 {
+    color: #3a9f68;
+    font-size: 14pt;
+}
+
