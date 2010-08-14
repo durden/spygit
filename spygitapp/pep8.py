@@ -41,10 +41,8 @@ def parse_pep8(run, git_prj_path, output):
         if (errnum, errtext) not in errortype_set:
             errortype_set.add((errnum, errtext))
             if not Error.objects.filter(error_type = errnum):
-                err = Error(error_type = errnum, short_descr = errtext,
-                        long_descr = errtext)
+                err = Error(error_type = errnum, short_descr = errtext)
                 err.save()
-                print "Add ERRTYPE %s %s" % (errnum, errtext)
 
         # Create a set of line numbers for each file
         for ln in range(max(0,lineno - 3), lineno + 4):
@@ -52,9 +50,7 @@ def parse_pep8(run, git_prj_path, output):
 
         # Add err instances to the db
         runfile = File.objects.get(run = run, filename = filename)
-        #FIXME: should only get one error back
-        #errtype = Error.objects.get(error_type = errnum, short_descr = errtext)
-        errtype = Error.objects.filter(error_type = errnum)[0]
+        errtype = Error.objects.get(error_type = errnum)
         runerr = RunError(error = errtype, file = runfile, line_number = lineno)
         runerr.save()
 
