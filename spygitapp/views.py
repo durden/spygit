@@ -1,4 +1,5 @@
 from django.shortcuts import render_to_response
+from pep8 import run_pep8
 
 def file_detail(request):
     text = """
@@ -30,3 +31,9 @@ def file_detail(request):
         """
 
     return render_to_response('file.html', {'text': text})
+
+
+def pep_view(request, **view_args):
+    run_pep8("git://github.com/durden/spygit.git")
+
+    return render_to_response('peptest.html')

@@ -18,6 +18,9 @@ urlpatterns = patterns('django.views.generic.simple',
 
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
+
+    # Debug
+    (r'^peptest/$', pep_view, {'template': 'peptest.html'}),
 )
 
 if settings.DEBUG:
