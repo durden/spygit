@@ -10,7 +10,10 @@
         <ul>
             {% for run in runs %}
                 <li>
-                    Revision: {{run.git_revision}} -- {{run.errors}}
+                    <a href="/project/rev/{{run.run_obj.git_revision}}">
+                        {{run.run_obj.git_revision}}</a>
+                    {{run.run_obj.date|date:"m-d-Y P"}}
+                    <span>Errors:{{run.errors}}</span>
                 </li>
             {% endfor %}
         </ul>

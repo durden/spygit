@@ -53,7 +53,7 @@ def project_overview(request, project_name):
             for file in File.objects.filter(run=run).order_by('filename'):
                 errors += len(RunError.objects.filter(file=file))
 
-            runs.append({'run':run, 'errors':errors})
+            runs.append({'run_obj': run, 'errors': errors})
 
     #assert False
     return render_to_response('project_overview.html', {'runs': runs})
