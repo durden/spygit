@@ -14,7 +14,7 @@ class Run(models.Model):
     project_name = models.CharField(max_length=300)
     project_url = models.CharField(max_length=500)
     date = models.DateTimeField(auto_now_add=True)
-    twitter_user = models.CharField(max_length=300)
+    twitter_user = models.CharField(max_length=300, blank=True)
     git_revision = models.CharField(max_length=40)
 
     def __unicode__(self):
