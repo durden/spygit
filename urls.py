@@ -1,6 +1,8 @@
 from django.conf.urls.defaults import *
 from django.conf import settings
 
+from spygitapp.views import *
+
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -12,6 +14,7 @@ urlpatterns = patterns('django.views.generic.simple',
 
     (r'^$', 'direct_to_template', {'template': 'home.html'}),
     (r'^about/$', 'direct_to_template', {'template': 'about.html'}),
+    (r'^file/$', file_detail),
 
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
