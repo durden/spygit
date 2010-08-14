@@ -1,7 +1,9 @@
-from models import Errors, Runs, Files
+from models import Error, Run, File, RunError, Line
 from django.contrib import admin
 
-admin.site.register(Errors)
-admin.site.register(Runs)
-admin.site.register(Files)
+admin.site.register(Error)
+admin.site.register(Run)
+admin.site.register(File)
+admin.site.register(RunError)
+admin.site.register(Line)
 
