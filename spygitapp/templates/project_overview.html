@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}
+    {% if runs|length %}
+        {{runs.0.run.project_name}}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if runs|length %}
+        <ul>
+            {% for run in runs %}
+                <li>
+                    Revision: {{run.git_revision}} -- {{run.errors}}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}

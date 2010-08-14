@@ -1,5 +1,8 @@
 from django.shortcuts import render_to_response
+
 from pep8 import run_pep8
+from spygitapp.models import Error, Run, File, RunError, Line
+
 
 def file_detail(request):
     text = """
@@ -31,6 +34,29 @@ def file_detail(request):
         """
 
     return render_to_response('file.html', {'text': text})
+
+
+def project_overview(request, project_name):
+    """Display overview of an entire project and it's runs"""
+
+    # FIXME: Don't want to use __contains here once the name isn't the same as
+    #        the project url
+
+    runs = []
+
+    if len(project_name):
+        # Find all runs and how many errors for each of them
+
+        for run in Run.objects.filter(project_name__contains=project_name).order_by('date'):
+            errors = 0
+
+            for file in File.objects.filter(run=run).order_by('filename'):
+                errors += len(RunError.objects.filter(file=file))
+
+            runs.append({'run':run, 'errors':errors})
+
+    #assert False
+    return render_to_response('project_overview.html', {'runs': runs})
 
 
 def pep_view(request, **view_args):
