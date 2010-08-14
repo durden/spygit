@@ -1,0 +1,6 @@
+django==1.2.1
+Pygments
+bpython
+-e git+http://github.com/jcrocholl/pep8.git#egg=pep8
+#-e git+http://github.com/lethain/django-syntax-colorize.git#egg=django-syntax-colorize
+virtualenvwrapper

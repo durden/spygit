@@ -1,0 +1,26 @@
+** First time setup information **
+
+- Use python 2.6
+- Install virtualenv
+    - easy_install virtualenv
+- Create virtualenv for project
+    - mkdir ~/.virtualenvs
+    - virtualenv --no-site-packages -v -p python2.6 ~/.virtualenvs/spygit_test
+    - This installs pip into THIS virtualenv.
+- Activate/switch to using virtualenv
+    - source ~/.virtualenvs/spygit_test/bin/activate
+- Use requirements file to install all project libraries:
+    - pip install -E ~/.virtualenvs/spygit_test/ -v -r ~/Documents/spygit/requirements.pip
+
+    - NOTE: django-syntax-colorize isn't installed via pip b/c it doesn't have
+            a setup.py so it won't install this way.
+        - Not a big deal b/c we can easily 'install' it by moving syntax_color.py
+          to our templatetags directory
+        - Thus, this file will have to be committed.
+
+
+** Normal workflow **
+- Activate/switch to using virtualenv
+    - source ~/.virtualenvs/spygit_test/bin/activate
+- Setup virtualenvwrapper.sh scripts
+    - source virtualenvwrapper.sh
