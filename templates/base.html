@@ -1,0 +1,27 @@
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+ 
+<html>
+     <head>
+         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+         <link rel="stylesheet" type="text/css" href="/media/css/main.css" media="screen">
+         <title> {% block title %} Spygit {% endblock %} </title>
+     </head>
+     <body>
+         <div id="header">
+             <h1>Spygit</h1>
+         </div>
+
+        <div id="content">
+
+        {% block content %} 
+        {% endblock %}
+
+        </div>
+        <div id="footer">
+            <p>
+                Created for 2010 <a href="http://www.djangodash.com">Django Dash</a> by
+                <a href="www.lukelee.net">Luke Lee</a> and Lance Shelton. 
+            </p>
+        </div>
+    </body>
+</html>
