@@ -25,8 +25,8 @@ def parse_pep8(run, git_prj_path, output):
     os.path.walk(git_prj_path, add_file_to_set, allfiles)
     for filename in allfiles:
         filename = filename.replace(git_prj_path + '/', '', 1)
-    	runfile = File(filename = filename, run = run)
-	runfile.save()
+        runfile = File(filename = filename, run = run)
+        runfile.save()
 
     # Generate a set of error types, error files, and lines
     for line in output.readlines():
@@ -37,37 +37,37 @@ def parse_pep8(run, git_prj_path, output):
         # Create sets to remove duplicates
         errfiles_set.add(filename)
 
-    	# Add new err types to the db
-    	if (errnum, errtext) not in errortype_set:
-	    errortype_set.add((errnum, errtext))
-	    if not Error.objects.filter(error_type = errnum):
-    		err = Error(error_type = errnum, short_descr = errtext,
-		    	    long_descr = errtext)
-		err.save()
-            	print "Add ERRTYPE %s %s" % (num, text)
+        # Add new err types to the db
+        if (errnum, errtext) not in errortype_set:
+            errortype_set.add((errnum, errtext))
+            if not Error.objects.filter(error_type = errnum):
+                err = Error(error_type = errnum, short_descr = errtext,
+                        long_descr = errtext)
+                err.save()
+            print "Add ERRTYPE %s %s" % (errnum, errtext)
 
-    	# Create a set of line numbers for each file
+        # Create a set of line numbers for each file
         for ln in range(max(0,lineno - 3), lineno + 4):
             lineno_set.add((filename,ln))
 
-    	# Add err instances to the db
-    	runfile = File.objects.get(run = run, filename = filename)
-	#FIXME: should only get one error back
-    	#errtype = Error.objects.get(error_type = errnum, short_descr = errtext)
-    	errtype = Error.objects.filter(error_type=errnum,short_descr=errtext)[0]
-    	runerr = RunError(error = errtype, file = runfile, line_number = lineno)
-	runerr.save()
+        # Add err instances to the db
+        runfile = File.objects.get(run = run, filename = filename)
+        #FIXME: should only get one error back
+        #errtype = Error.objects.get(error_type = errnum, short_descr = errtext)
+        errtype = Error.objects.filter(error_type = errnum)[0]
+        runerr = RunError(error = errtype, file = runfile, line_number = lineno)
+        runerr.save()
 
     # Add lines to the db
     for filename in errfiles_set:
-    	runfile = File.objects.get(run = run, filename = filename)
-	
+        runfile = File.objects.get(run = run, filename = filename)
+    
         f = open(git_prj_path + '/' + filename, 'r')
         lineno = 0
         for line in f:
             if (filename, lineno) in lineno_set:
-    	    	line = Line(file = runfile, line_number = lineno, text = line)
-	    	line.save()
+                linetext = Line(file = runfile, line_number = lineno, text = line)
+                linetext.save()
             lineno = lineno + 1
         f.close()
 
