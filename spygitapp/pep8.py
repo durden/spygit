@@ -44,7 +44,7 @@ def parse_pep8(run, git_prj_path, output):
     		err = Error(error_type = errnum, short_descr = errtext,
 		    	    long_descr = errtext)
 		err.save()
-            	print "Add ERRTYPE %s %s" % (num, text)
+        print "Add ERRTYPE %s %s" % (errnum, errtext)
 
     	# Create a set of line numbers for each file
         for ln in range(max(0,lineno - 3), lineno + 4):
