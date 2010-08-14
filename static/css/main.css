@@ -4,6 +4,7 @@ body {
     padding: 0px;
     margin: 0px;
     color: #000000;
+    line-height: 160%;
 }
 
 ul#nav {
@@ -20,7 +21,7 @@ ul#nav {
 }
 
 #header {
-    height: 343px;
+    height: 298px;
     background: #000 url(/static/img/header.jpeg) repeat-x;
     padding: 0px;
     margin: 0px;
@@ -28,8 +29,9 @@ ul#nav {
 
 fieldset#form {
     position: relative;
-    top: 120px;
+    top: 90px;
     border: 0px;
+    padding-left: 20px;
 }
 
 #form input.field {
@@ -60,12 +62,13 @@ fieldset#form {
 h1.logo {
     position: relative;
     height: 0px;
-    width: 503px;
-    top: 100px;
+    width: 467px;
+    top: 70px;
     background: #000 url(/static/img/logo.jpeg) no-repeat;
     float: left;
     padding: 110px 0 0 0;
     overflow: hidden;
+    left: 10px;
 }
 
 h1 {
