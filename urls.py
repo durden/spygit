@@ -12,16 +12,20 @@ urlpatterns = patterns('django.views.generic.simple',
     # to INSTALLED_APPS to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
+    # Static
     (r'^$', 'direct_to_template', {'template': 'home.html'}),
     (r'^about/$', 'direct_to_template', {'template': 'about.html'}),
-    (r'^file/$', file_detail),
-    (r'^project/(.*)$', project_overview),
+
+    # Project navigation
+    (r'^(\w+)/(\w+)$', project_revision),
+    (r'^(\w+)/$', project_overview),
 
     # Uncomment the next line to enable the admin:
     (r'^admin/', include(admin.site.urls)),
 
     # Debug
     (r'^peptest/$', pep_view, {'template': 'peptest.html'}),
+    (r'^file/$', file_detail),
 )
 
 if settings.DEBUG:
