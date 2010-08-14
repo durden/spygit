@@ -1,0 +1,14 @@
+body {
+    font-size: 13pt;
+    font-family: Verdana, Helvetia, sans-serif;
+    padding: 0px;
+    margin: 0px;
+    color: #000000;
+}
+
+
+#header {
+    background: #ccc url(/static/img/header.jpg) repeat-x;
+    padding: 0px;
+    margin: 0px;
+}
