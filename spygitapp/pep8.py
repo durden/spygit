@@ -51,7 +51,8 @@ def parse_pep8(run, git_prj_path, output):
         # Add err instances to the db
         runfile = File.objects.get(run = run, filename = filename)
         errtype = Error.objects.get(error_type = errnum)
-        runerr = RunError(error = errtype, file = runfile, line_number = lineno)
+        runerr = RunError(error = errtype, file = runfile, line_number = lineno,
+                          error_descr = errtext)
         runerr.save()
 
     # Add lines to the db

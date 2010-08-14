@@ -4,7 +4,6 @@ from django.db import models
 class Error(models.Model):
     error_type = models.IntegerField()
     short_descr = models.TextField()
-    long_descr = models.TextField()
 
     def __unicode__(self):
         return u'%d' % (self.error_type)
@@ -33,6 +32,7 @@ class RunError(models.Model):
     error = models.ForeignKey('Error')
     file = models.ForeignKey('File')
     line_number = models.IntegerField()
+    error_descr = models.TextField()
 
     def __unicode__(self):
         return u'%s- %s' % (self.file.filename, self.line_number)
