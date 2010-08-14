@@ -20,7 +20,7 @@ ul#nav {
 }
 
 #header {
-    height: 421px;
+    height: 343px;
     background: #000 url(/static/img/header.jpeg) repeat-x;
     padding: 0px;
     margin: 0px;
@@ -35,7 +35,7 @@ fieldset#form {
 #form input.field {
     height: 45px;
     width: 500px;
-    font-size: 16pt;
+    font-size: 17pt;
 }
 
 #form input.button {
@@ -46,7 +46,10 @@ fieldset#form {
 }
 
 #content {
+    position: relative;
+    top: -50px;
     clear: both;
+    margin: 0px 50px;
 }
 
 #footer {
