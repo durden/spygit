@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %} File {% endblock %}
+
+{% load syntax_color %}
+
+{% block content %}
+   <p>
+        {{ text|colorize_table:"python" }}        
+   </p>
+{% endblock %}
+
+
