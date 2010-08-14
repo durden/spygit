@@ -34,6 +34,6 @@ def file_detail(request):
 
 
 def pep_view(request, **view_args):
-    run_pep8("git://github.com/durden/spygit.git")
-
+    if request.method == 'GET':
+        run_pep8(request.GET.get('repo'))
     return render_to_response('peptest.html')
