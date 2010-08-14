@@ -6,6 +6,9 @@ class Error(models.Model):
     short_descr = models.TextField()
     long_descr = models.TextField()
 
+    def __unicode__(self):
+        return u'%d' % (self.error_type)
+
 
 class Run(models.Model):
     project_name = models.CharField(max_length=300)
@@ -14,10 +17,16 @@ class Run(models.Model):
     twitter_user = models.CharField(max_length=300)
     git_revision = models.CharField(max_length=40)
 
+    def __unicode__(self):
+        return u'%s - %s' % (self.project_name, self.git_revision[0:5])
+
 
 class File(models.Model):
     filename = models.CharField(max_length=300)
     run = models.ForeignKey('Run')
+
+    def __unicode__(self):
+        return u'%s' % (self.filename)
 
 
 class RunError(models.Model):
@@ -25,8 +34,14 @@ class RunError(models.Model):
     file = models.ForeignKey('File')
     line_number = models.IntegerField()
 
+    def __unicode__(self):
+        return u'%s- %s' % (self.file.filename, self.line_number)
+
 
 class Line(models.Model):
     file = models.ForeignKey('File')
     line_number = models.IntegerField()
-    text= models.TextField()
+    text = models.TextField()
+
+    def __unicode__(self):
+        return u'%s' % (self.text[0:20])
