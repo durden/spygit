@@ -32,7 +32,6 @@ def project(request, project_name, rev):
 
     files = []
 
-    # FIXME: This won't work if the same revision is run more than once!
     file_objs = File.objects.filter(run__project_name=project_name,
                                     run__git_revision=rev).order_by('filename')
 
