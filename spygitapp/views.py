@@ -1,4 +1,5 @@
 from django.shortcuts import render_to_response
+from django.shortcuts import redirect
 
 from pep8 import run_pep8
 from spygitapp.models import Error, Run, File, RunError, Line
@@ -58,6 +59,9 @@ def file_detail(request, project_name, rev, filename):
 
 
 def pep_view(request, **view_args):
-    run_pep8("git://github.com/durden/spygit.git")
-
-    return render_to_response('peptest.html')
+    try:
+        if request.method == 'GET':
+            run_pep8(request.GET.get('repo'))
+        return render_to_response('peptest.html')
+    except:
+        return redirect('/')

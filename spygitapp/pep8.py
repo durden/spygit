@@ -41,10 +41,8 @@ def parse_pep8(run, git_prj_path, output):
         if (errnum, errtext) not in errortype_set:
             errortype_set.add((errnum, errtext))
             if not Error.objects.filter(error_type = errnum):
-                err = Error(error_type = errnum, short_descr = errtext,
-                        long_descr = errtext)
+                err = Error(error_type = errnum, short_descr = errtext)
                 err.save()
-                print "Add ERRTYPE %s %s" % (errnum, errtext)
 
         # Create a set of line numbers for each file
         for ln in range(max(0,lineno - 3), lineno + 4):
@@ -52,10 +50,9 @@ def parse_pep8(run, git_prj_path, output):
 
         # Add err instances to the db
         runfile = File.objects.get(run = run, filename = filename)
-        #FIXME: should only get one error back
-        #errtype = Error.objects.get(error_type = errnum, short_descr = errtext)
-        errtype = Error.objects.filter(error_type = errnum)[0]
-        runerr = RunError(error = errtype, file = runfile, line_number = lineno)
+        errtype = Error.objects.get(error_type = errnum)
+        runerr = RunError(error = errtype, file = runfile, line_number = lineno,
+                          error_descr = errtext)
         runerr.save()
 
     # Add lines to the db
@@ -75,14 +72,24 @@ def parse_pep8(run, git_prj_path, output):
 def run_pep8(git_prj_name):
     """Check out the git project, run pep8, store the results"""
 
-    print "Starting..."
-    run = Run(project_name = git_prj_name, project_url = git_prj_name)
-    run.save()
-
     git_prj_path = tempfile.mkdtemp(prefix='spygit-')
-    os.system("git clone %s %s > /dev/null" % (git_prj_name, git_prj_path))
+
+    st = os.system("git clone %s %s > /dev/null" % (git_prj_name, git_prj_path))
+    if st != 0:
+        raise StandardError
+        return
+
+    # grab the git revision
+    gpipe = os.popen("cd %s && git --no-pager log --max-count=1" % git_prj_path)
+    if st != 0:
+        raise StandardError
+        return
+    rev = gpipe.readlines()[0].replace('commit ', '', 1)
+    gpipe.close()
+
+    run = Run(project_url = git_prj_name, git_revision = rev)
+    run.save()
     pep8_pipe = os.popen("pep8 %s" % git_prj_path)
     parse_pep8(run, git_prj_path, pep8_pipe)
     pep8_pipe.close()
     os.system("rm -rf %s" % git_prj_path)
-    print "Done"
