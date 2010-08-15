@@ -69,7 +69,8 @@ def file_detail(request, project_name, rev, filename):
     # Match up the lines with which ones have errors
     for line in all_lines:
         try:
-            error = RunError.objects.get(file=file, line_number=line.line_number)
+            error = RunError.objects.get(file=file,
+                                         line_number=line.line_number)
             error = error.error
         except ObjectDoesNotExist:
             error = None
@@ -79,7 +80,8 @@ def file_detail(request, project_name, rev, filename):
 
     # Pass this b/c if there are no errors there will be no lines, so can't
     # show the filename
-    return render_to_response('file.html', {'lines': lines, 'filename': filename})
+    return render_to_response('file.html',
+                              {'lines': lines, 'filename': filename})
 
 
 def pep_view(request, **view_args):
