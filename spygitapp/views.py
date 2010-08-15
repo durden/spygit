@@ -70,7 +70,8 @@ def home(request):
           'total_projects': total_projects,
           'worst_proj': worst_proj,
           'max_errors': max_errors,
-          'default_url': djangodash_urls[randint(0, len(djangodash_urls)-1)]})
+          'default_url': djangodash_urls[
+                            randint(0, len(djangodash_urls) - 1)]})
 
 
 def projects(request):
