@@ -108,7 +108,8 @@ def project_cloud(request, project_name, rev):
 
     # Just build this here b/c its a bit easier
     url = "/%s/%s" % (project_name, rev)
-    return render_to_response('project_cloud.html', {'files': files, 'url': url, 'total': total})
+    return render_to_response('project_cloud.html',
+                              {'files': files, 'url': url, 'total': total})
 
 
 def file_detail(request, project_name, rev, filename):

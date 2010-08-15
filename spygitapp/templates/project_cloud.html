@@ -8,18 +8,30 @@
 
 {% block content %}
     <a href="{{url}}">Project View</a> | Cloud View
-    {% if files|length %}
-        <ul id="cloud">
-            {% for file in files %}
+    <br>
+    <br>
+    <a href="/{{files.0.file_obj.run.project_name}}/">{{files.0.file_obj.run.project_name}}/</a>
+    <ul class="filelist" id="cloud">
+        {% for file in files %}
+            <li>
                 {% if file.errors %}
-                    <li>
-                        <a href="{{url}}/{{file.file_obj.filename}}" class="tag{{file.weight}}">{{file.file_obj.filename}}</a>
-                        ({{file.errors}} errors)
-                    </li>
+                    <a href="{{url}}/{{file.file_obj.filename}}" class="tag{{file.weight}}">
+                        {{file.file_obj.filename}}</a>
+                    (Errors: {{file.errors}})
                 {% endif %}
-            {% endfor %}
-            ({{total}} errors in all)
-        </ul>
-    {% endif %}
+            </li>
+        {% endfor %}
+        ({{total}} errors in all)
+    </ul>
+    <p class="share">
+        Share your good (or bad) fortune with the following icon/html to
+        visitors to your project's site to see your standards progress.
+        <br><br>
+        <img src="/static/img/share.jpeg" height="20" width="193">
+        <br><br>
+        <textarea rows="4" cols="40">
+            <a href="{{url}}"><img src="/static/img/share.jpeg" height="20" width="193"></a>
+        </textarea>
+    </p>
 {% endblock %}
 
