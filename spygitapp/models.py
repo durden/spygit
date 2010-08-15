@@ -44,4 +44,4 @@ class Line(models.Model):
     text = models.TextField()
 
     def __unicode__(self):
-        return u'%s' % (self.text[0:20])
+        return u'%s:%s' % (self.line_number, self.text[0:20])
