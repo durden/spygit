@@ -101,7 +101,7 @@ def project_cloud(request, project_name, rev):
         else:
             weight = 0
 
-        files.append({'file_obj': file, 'errors': errors, 'weight' : weight})
+        files.append({'file_obj': file, 'errors': errors, 'weight': weight})
 
     if not len(files):
         raise Http404
