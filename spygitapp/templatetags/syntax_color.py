@@ -1,3 +1,6 @@
+# Modified from the following:
+#   http://github.com/lethain/django-syntax-colorize
+
 from django import template
 from django.template.defaultfilters import stringfilter
 from django.utils.safestring import mark_safe
@@ -24,24 +27,33 @@ def get_lexer(value,arg):
     return get_lexer_by_name(arg)
 
 
-@register.filter(name='colorize')
-@stringfilter
-def colorize(value, arg=None):
+def __colorize(value, arg=None, linenos='inline', error_line=False):
+    prestyles = ''
+    if error_line:
+        prestyles = 'border: 1px solid #dd0000'
+
     try:
         return mark_safe(highlight(value, get_lexer_by_name('python'),
-                            HtmlFormatter(linenos='inline', linenostart=arg,
-                                            nobackground=True)))
+                            HtmlFormatter(linenos=linenos, linenostart=arg,
+                                            prestyles=prestyles)))
     except ClassNotFound:
         return value
+
+
+@register.filter(name='colorize')
+@stringfilter
+def colorize(value, arg=1):
+    return __colorize(value, arg)
+
+
+@register.filter(name='colorize_error')
+@stringfilter
+def colorize_error(value, arg=1):
+    return __colorize(value, arg, error_line=True)
 
 
 @register.filter(name='colorize_table')
 @stringfilter
 def colorize_table(value, arg=1):
-    try:
-        return mark_safe(highlight(value, get_lexer_by_name('python'),
-                            HtmlFormatter(linenos='table', linenostart=arg,
-                                            nobackground=True)))
-    except ClassNotFound:
-        return value
+    return __colorize(value, arg, linenos='table')
 
