@@ -7,6 +7,11 @@ from pep8 import run_pep8
 from spygitapp.models import Error, Run, File, RunError, Line
 
 
+def home(request):
+    runs = set(Run.objects.all().order_by('date')[0:3])
+    return render_to_response('home.html', {'projects': runs})
+
+
 def projects(request):
     """Display listing of projects"""
 

@@ -13,7 +13,6 @@ urlpatterns = patterns('django.views.generic.simple',
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Static
-    (r'^$', 'direct_to_template', {'template': 'home.html'}),
     (r'^about/$', 'direct_to_template', {'template': 'about.html'}),
 
     # Admin
@@ -22,6 +21,7 @@ urlpatterns = patterns('django.views.generic.simple',
     # Debug
     (r'^peptest/$', pep_view, {'template': 'peptest.html'}),
 
+    (r'^$', home),
     (r'^projects/$', projects),
 
     # Project navigation

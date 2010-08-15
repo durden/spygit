@@ -1,3 +1,12 @@
 {% extends 'base.html' %}
 
 {% block form %} {% include 'form.html' %} {% endblock %}
+
+{% block content %}
+
+    <div id="recent">
+        <h2>Recently Spy'ed Projects</h2>
+        {% include 'project_listing.html' %}
+    </div>
+
+{% endblock %}

@@ -59,6 +59,10 @@ fieldset#form {
     font-size: 11pt;
 }
 
+#recent {
+    margin: 0px auto;
+}
+
 h1.logo {
     position: relative;
     height: 0px;
