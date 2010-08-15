@@ -32,8 +32,8 @@ urlpatterns = patterns('django.views.generic.simple',
     (r'^([a-zA-Z0-9_\.\-]+)/(\w+)/([a-zA-Z0-9_\/.\-]+)/$', file_detail),
 )
 
-if settings.DEBUG:
-    urlpatterns += patterns('',
-                    (r'^static/(?P<path>.*)$', 'django.views.static.serve',
-                        {'document_root': settings.STATIC_DOC_ROOT,
-                        'show_indexes': True}),)
+#if settings.DEBUG:
+urlpatterns += patterns('',
+                (r'^static/(?P<path>.*)$', 'django.views.static.serve',
+                    {'document_root': settings.STATIC_DOC_ROOT,
+                    'show_indexes': True}),)
