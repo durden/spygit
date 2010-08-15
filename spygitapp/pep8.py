@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response
 import os
 import string
 import tempfile
+from fnmatch import fnmatch
 from models import Error, Run, File, RunError, Line
 
 
@@ -10,7 +11,9 @@ def add_file_to_set(myset, dirname, fnames):
     """Used with os.path.walk to make a list of all files"""
 
     for filename in fnames:
-        myset.add(dirname + '/' + filename)
+        name = dirname + '/' + filename
+        if fnmatch(name, '*.py'):
+            myset.add(name)
 
 
 def parse_pep8(run, git_path, output):
