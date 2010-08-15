@@ -38,7 +38,6 @@ djangodash_urls = list([
     "git://github.com/ericflo/servertail",
     "git://github.com/jibaku/dashed2010",
     "git://github.com/eppsilon/beavers",
-    "git://github.com/zain/heatboats",
     "git://github.com/pydanny/scaredofrabbits",
     "git://github.com/threadsafelabs/crywolf",
     "git://github.com/jtauber/team566",
