@@ -89,6 +89,7 @@ def run_pep8(git_url):
         raise StandardError
         return
     rev = gpipe.readlines()[0].replace('commit ', '', 1)
+    rev = rev.strip('\n')
     gpipe.close()
 
     # Do not allow duplicates of the same project/rev
