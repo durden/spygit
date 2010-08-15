@@ -79,6 +79,7 @@ def project_cloud(request, project_name, rev):
 
     max_errors = 0
     total = 0
+    err_set = set()
 
     for file in file_objs:
         errors = 0
@@ -90,16 +91,27 @@ def project_cloud(request, project_name, rev):
         if errors > max_errors:
             max_errors = errors
 
+        err_set.add(errors)
+
+    # Create a list of all the errors and bin them
+    err_list = list(err_set)
+    dividers = list()
+    for num in range(1, 10):
+        dividers.append(err_list[len(err_list) * num / 10])
+
     for file in file_objs:
         errors = 0
 
         for error in RunError.objects.filter(file=file):
             errors = errors + 1
 
+        # Assign each file to an error weight bin
+        weight = 0
         if max_errors:
-            weight = int(errors * 10 / max_errors)
-        else:
-            weight = 0
+            for divider in dividers:
+                if errors < divider:
+                    break
+                weight = weight + 1
 
         files.append({'file_obj': file, 'errors': errors, 'weight': weight})
 
