@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if files %}
+        {{files.0.run.project_name}} {{files.0.run.git_revision}}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if files|length %}
+        <ul>
+            {% for file in files %}
+                <li>
+                    {% for file in files %}
+                        <li>{{file.filename}}</li>
+                    {% endfor %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock %}
+

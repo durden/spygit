@@ -17,7 +17,7 @@ urlpatterns = patterns('django.views.generic.simple',
     (r'^about/$', 'direct_to_template', {'template': 'about.html'}),
 
     # Project navigation
-    (r'^(\w+)/(\w+)$', project_revision),
+    (r'^(\w+)/(\w+)$', project),
     (r'^(\w+)/$', project_overview),
 
     # Uncomment the next line to enable the admin:
