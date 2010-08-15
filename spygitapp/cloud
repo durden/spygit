@@ -1,0 +1,54 @@
+
+
+
+def project(request, project_name, rev):
+    """Display full project layout given a specific revision"""
+
+    files = []
+
+    file_objs = File.objects.filter(run__project_name=project_name,
+                                    run__git_revision=rev).order_by('filename')
+
+    max_errors = 0
+    total = 0
+
+    for file in file_objs:
+        errors = 0
+
+        for error in RunError.objects.filter(file=file):
+            errors = errors + 1
+            total = total + 1
+
+        if errors > max_errors:
+            max_errors = errors
+
+    for file in file_objs:
+        errors = 0
+
+        for error in RunError.objects.filter(file=file):
+            errors = errors + 1
+
+        if max_errors:
+            weight = int(errors * 10 / max_errors)
+        else:
+            weight = 0
+
+        files.append({'file_obj': file, 'errors': errors, 'weight' : weight})
+
+    # Just build this here b/c its a bit easier
+    url = "/%s/%s" % (project_name, rev)
+    return render_to_response('project.html', {'files': files, 'url': url, 'total': total})
+
+     <style type="text/css">
+        #cloud a.tag0 { font-size: 0.6em; font-weight: 100; }
+        #cloud a.tag1 { font-size: 0.7em; font-weight: 100; }
+        #cloud a.tag2 { font-size: 0.8em; font-weight: 200; }
+        #cloud a.tag3 { font-size: 0.9em; font-weight: 300; }
+        #cloud a.tag4 { font-size: 1.0em; font-weight: 400; }
+        #cloud a.tag5 { font-size: 1.1em; font-weight: 500; }
+        #cloud a.tag6 { font-size: 1.2em; font-weight: 600; }
+        #cloud a.tag7 { font-size: 1.3em; font-weight: 700; }
+        #cloud a.tag8 { font-size: 1.4em; font-weight: 800; }
+        #cloud a.tag9 { font-size: 1.5em; font-weight: 900; }
+        #cloud a.tag10 { font-size: 1.6em; font-weight: 900; }
+     </style>

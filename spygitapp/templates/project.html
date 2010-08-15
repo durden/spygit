@@ -10,7 +10,11 @@
     <ul>
         {% for file in files %}
             <li>
-                <a href="{{url}}/{{file.file_obj.filename}}">{{file.file_obj.filename}}</a>
+                {% if file.errors %}
+                    <a href="{{url}}/{{file.file_obj.filename}}">{{file.file_obj.filename}}</a>
+                {% else %}
+                    {{file.file_obj.filename}}
+                {% endif %}
                 (Errors: {{file.errors}})
             </li>
         {% endfor %}
