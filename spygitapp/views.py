@@ -4,38 +4,6 @@ from pep8 import run_pep8
 from spygitapp.models import Error, Run, File, RunError, Line
 
 
-def file_detail(request):
-    text = """
-        def __render_page(name, active):
-
-            show_page = get_object_or_404(Page, name=name)
-            blogs = None
-            pages = None
-
-            # Add the 'latest' info to the homepage
-            if name == "Home":
-                blogs = Blog.objects.all().order_by("-updated")[:3]
-                pages = Page.objects.all().order_by("-updated")[:2]
-
-                # Figure out what page to link to
-                for page in pages:
-                    # FIXME: Bad to hardcode these names here b/c now there are
-                    #        dependencies here, views, and urls
-                    if page.name == "Our Story":
-                        page.link = "story"
-                    elif page.name == "Gift Registry":
-                        page.link = "gifts"
-                    else:
-                        page.link = "home"
-
-            return render_to_response('page.html', {'page': show_page,
-                                      'active': active, 'blogs': blogs,
-                                      'pages': pages})
-        """
-
-    return render_to_response('file.html', {'text': text})
-
-
 def project_overview(request, project_name):
     """Display overview of an entire project and it's runs"""
 
@@ -59,11 +27,34 @@ def project_overview(request, project_name):
 def project(request, project_name, rev):
     """Display full project layout given a specific revision"""
 
-    # FIXME: This won't work if the same revision is run more than once!
-    files = File.objects.filter(run__project_name__contains=project_name,
-                                    run__git_revision=rev)
+    files = []
 
-    return render_to_response('project.html', {'files': files})
+    # FIXME: This won't work if the same revision is run more than once!
+    file_objs = File.objects.filter(run__project_name__contains=project_name,
+                                    run__git_revision=rev).order_by('filename')
+
+    for file in file_objs:
+        errors = 0
+
+        for error in RunError.objects.filter(file=file):
+            errors = errors + 1
+
+        files.append({'file_obj': file, 'errors': errors})
+
+    # Just build this here b/c its a bit easier
+    url = "/%s/%s" % (project_name, rev)
+    return render_to_response('project.html', {'files': files, 'url': url})
+
+
+def file_detail(request, project_name, rev, filename):
+    file = File.objects.get(run__project_name__contains=project_name,
+                    run__git_revision=rev, filename=filename)
+
+    lines = Line.objects.filter(file=file)
+
+    # Pass this b/c if there are no errors there will be no lines, so can't
+    # show the filename
+    return render_to_response('file.html', {'lines': lines, 'filename': filename})
 
 
 def pep_view(request, **view_args):

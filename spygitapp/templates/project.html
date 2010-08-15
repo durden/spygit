@@ -9,13 +9,14 @@
 {% block content %}
     {% if files|length %}
         <ul>
-            {% for file in files %}
-                <li>
-                    {% for file in files %}
-                        <li>{{file.filename}}</li>
-                    {% endfor %}
-                </li>
-            {% endfor %}
+            <li>
+                {% for file in files %}
+                    <li>
+                        <a href="{{url}}/{{file.file_obj.filename}}">{{file.file_obj.filename}}</a>
+                        (Errors: {{file.errors}})
+                    </li>
+                {% endfor %}
+            </li>
         </ul>
     {% endif %}
 {% endblock %}

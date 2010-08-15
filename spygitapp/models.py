@@ -26,7 +26,7 @@ class File(models.Model):
     run = models.ForeignKey('Run')
 
     def __unicode__(self):
-        return u'%s' % (self.filename)
+        return u'%s %s' % (self.run, self.filename)
 
 
 class RunError(models.Model):

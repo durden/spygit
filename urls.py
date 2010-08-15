@@ -16,16 +16,16 @@ urlpatterns = patterns('django.views.generic.simple',
     (r'^$', 'direct_to_template', {'template': 'home.html'}),
     (r'^about/$', 'direct_to_template', {'template': 'about.html'}),
 
+    # Admin
+    (r'^admin/', include(admin.site.urls)),
+
     # Project navigation
     (r'^(\w+)/(\w+)$', project),
     (r'^(\w+)/$', project_overview),
-
-    # Uncomment the next line to enable the admin:
-    (r'^admin/', include(admin.site.urls)),
+    (r'^(\w+)/(\w+)/([a-zA-Z0-9_\/.]+)/$', file_detail),
 
     # Debug
     (r'^peptest/$', pep_view, {'template': 'peptest.html'}),
-    (r'^file/$', file_detail),
 )
 
 if settings.DEBUG:

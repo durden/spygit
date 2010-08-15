@@ -1,11 +1,17 @@
 {% extends "base.html" %}
-{% block title %} File {% endblock %}
+{% block title %} {{filename}} {% endblock %}
 
 {% load syntax_color %}
 
 {% block content %}
    <p>
-        {{ text|colorize:"10" }}
+        {% ifequal lines|length 0 %}
+            No errors for {{filename}}
+        {% else %}
+            {% for line in lines %}
+                {{ line.text|colorize:line.line_number}}
+            {% endfor %}
+        {% endifequal %}
    </p>
 {% endblock %}
 
