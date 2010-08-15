@@ -1,6 +1,7 @@
 from django.shortcuts import render_to_response
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
+from django.core.exceptions import ObjectDoesNotExist
 
 from pep8 import run_pep8
 from spygitapp.models import Error, Run, File, RunError, Line
@@ -49,10 +50,21 @@ def project(request, project_name, rev):
 
 
 def file_detail(request, project_name, rev, filename):
+    lines = []
     file = File.objects.get(run__project_name__contains=project_name,
                     run__git_revision=rev, filename=filename)
+    all_lines = Line.objects.filter(file=file).order_by('line_number')
 
-    lines = Line.objects.filter(file=file)
+    # Match up the lines with which ones have errors
+    for line in all_lines:
+        try:
+            error = RunError.objects.get(file=file, line_number=line.line_number)
+            error = error.error
+        except ObjectDoesNotExist:
+            error = None
+
+        lines.append({'line_obj': line, 'error': error})
+    #assert False
 
     # Pass this b/c if there are no errors there will be no lines, so can't
     # show the filename
