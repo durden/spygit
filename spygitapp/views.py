@@ -77,11 +77,13 @@ def file_detail(request, project_name, rev, filename):
 
     # Match up the lines with which ones have errors
     for line in all_lines:
-        try:
-            error = RunError.objects.get(file=file,
-                                         line_number=line.line_number)
-            error = error.error
-        except ObjectDoesNotExist:
+        error = RunError.objects.filter(file=file,
+                                        line_number=line.line_number)
+
+        # Just report the first error... We may want to improve this later
+        if len(error):
+            error = error[0].error
+        else:
             error = None
 
         lines.append({'line_obj': line, 'error': error})
