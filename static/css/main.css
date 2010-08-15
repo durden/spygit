@@ -16,7 +16,7 @@ ul#nav {
 #nav li {
     list-style-type: 0px;
     display: inline;
-    margin: 0px 15px 0px 0px;
+    margin: 0px;
     padding: 0px;
 }
 
