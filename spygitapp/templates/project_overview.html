@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 {% block title %}
     {% if runs|length %}
-        {{runs.0.run.project_name}}
+        {{runs.0.run_obj.project_name}}
     {% endif %}
 {% endblock %}
 
 {% block content %}
+    Interested in this project?<br>
+    Help get it compliant at {{runs.0.run_obj.project_url}}.<br><br>
+
     <table class="proj_overview">
         <thead>
             <tr>
