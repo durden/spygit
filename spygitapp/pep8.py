@@ -63,7 +63,7 @@ def parse_pep8(run, git_path, output):
         runfile = File.objects.get(run = run, filename = filename)
     
         f = open(git_path + '/' + filename, 'r')
-        lineno = 0
+        lineno = 1
         for line in f:
             if (filename, lineno) in lineno_set:
                 linetext = Line(file = runfile, line_number = lineno, text = line)
