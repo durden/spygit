@@ -15,7 +15,6 @@ djangodash_urls = list([
     "git://github.com/bubly/Bub.ly",
     "git://github.com/durden/spygit",
     "git://github.com/tereno/DjangoDash",
-    "git://github.com/notanumber/slurpie",
     "git://bitbucket.org/citrus/ratemyflight",
     "git://github.com/igorsobreira/wifimap",
     "git://github.com/chronossc/dashline",
@@ -164,6 +163,7 @@ def project_cloud(request, project_name, rev):
 
     # Create a list of all the errors and bin them
     err_list = list(err_set)
+    err_list.sort()
     dividers = list()
     for num in range(1, 10):
         dividers.append(err_list[len(err_list) * num / 10])
