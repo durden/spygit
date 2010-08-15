@@ -1,4 +1,5 @@
 from django.shortcuts import render_to_response
+from django.shortcuts import redirect
 from pep8 import run_pep8
 
 def file_detail(request):
@@ -34,6 +35,9 @@ def file_detail(request):
 
 
 def pep_view(request, **view_args):
-    if request.method == 'GET':
-        run_pep8(request.GET.get('repo'))
-    return render_to_response('peptest.html')
+    try:
+        if request.method == 'GET':
+            run_pep8(request.GET.get('repo'))
+        return render_to_response('peptest.html')
+    except:
+        return redirect('/')

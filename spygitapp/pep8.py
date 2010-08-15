@@ -72,14 +72,14 @@ def parse_pep8(run, git_prj_path, output):
 def run_pep8(git_prj_name):
     """Check out the git project, run pep8, store the results"""
 
-    print "Starting..."
+    git_prj_path = tempfile.mkdtemp(prefix='spygit-')
+    st = os.system("git clone %s %s > /dev/null" % (git_prj_name, git_prj_path))
+    if st != 0:
+        raise StandardError
+        return
     run = Run(project_name = git_prj_name, project_url = git_prj_name)
     run.save()
-
-    git_prj_path = tempfile.mkdtemp(prefix='spygit-')
-    os.system("git clone %s %s > /dev/null" % (git_prj_name, git_prj_path))
     pep8_pipe = os.popen("pep8 %s" % git_prj_path)
     parse_pep8(run, git_prj_path, pep8_pipe)
     pep8_pipe.close()
     os.system("rm -rf %s" % git_prj_path)
-    print "Done"
