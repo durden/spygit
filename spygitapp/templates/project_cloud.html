@@ -7,6 +7,7 @@
 {% endblock %}
 
 {% block content %}
+    <a href="{{url}}">Project View</a> | Cloud View
     {% if files|length %}
         <ul id="cloud">
             {% for file in files %}
