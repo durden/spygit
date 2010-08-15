@@ -133,3 +133,8 @@ p.share {
     line-height: 200%;
 }
 
+.errortext {
+    font-size: 12pt;
+    color: #dd0000;
+    font-style: italic;
+}
