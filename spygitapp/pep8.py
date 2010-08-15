@@ -13,7 +13,7 @@ def add_file_to_set(myset, dirname, fnames):
         myset.add(dirname + '/' + filename)
 
 
-def parse_pep8(run, git_prj_path, output):
+def parse_pep8(run, git_path, output):
     """Parse the pep8 output, store the results"""
 
     errfiles_set = set()
@@ -22,9 +22,9 @@ def parse_pep8(run, git_prj_path, output):
 
     # Add all files in the project to the db
     allfiles = set()
-    os.path.walk(git_prj_path, add_file_to_set, allfiles)
+    os.path.walk(git_path, add_file_to_set, allfiles)
     for filename in allfiles:
-        filename = filename.replace(git_prj_path + '/', '', 1)
+        filename = filename.replace(git_path + '/', '', 1)
         runfile = File(filename = filename, run = run)
         runfile.save()
 
@@ -32,7 +32,7 @@ def parse_pep8(run, git_prj_path, output):
     for line in output.readlines():
         filename, lineno, errnum, errtext = string.split(line, ':', 4)
         lineno = int(lineno)
-        filename = filename.replace(git_prj_path + '/', '', 1)
+        filename = filename.replace(git_path + '/', '', 1)
 
         # Create sets to remove duplicates
         errfiles_set.add(filename)
@@ -59,7 +59,7 @@ def parse_pep8(run, git_prj_path, output):
     for filename in errfiles_set:
         runfile = File.objects.get(run = run, filename = filename)
     
-        f = open(git_prj_path + '/' + filename, 'r')
+        f = open(git_path + '/' + filename, 'r')
         lineno = 0
         for line in f:
             if (filename, lineno) in lineno_set:
@@ -69,29 +69,34 @@ def parse_pep8(run, git_prj_path, output):
         f.close()
 
 
-def run_pep8(git_prj_name):
+def run_pep8(git_url):
     """Check out the git project, run pep8, store the results"""
 
-    git_prj_path = tempfile.mkdtemp(prefix='spygit-')
+    tmp_path = tempfile.mkdtemp(prefix='spygit-')
 
-    st = os.system("git clone %s %s > /dev/null" % (git_prj_name, git_prj_path))
+    st = os.system("cd %s && git clone %s" % (tmp_path, git_url))
     if st != 0:
         raise StandardError
         return
 
+    # get the project name from the top level directory
+    git_name = os.listdir(tmp_path)[0]
+    git_path = tmp_path + '/' + git_name
+
     # grab the git revision
-    gpipe = os.popen("cd %s && git --no-pager log --max-count=1" % git_prj_path)
+    gpipe = os.popen("cd %s && git --no-pager log --max-count=1" % git_path)
     if st != 0:
         raise StandardError
         return
     rev = gpipe.readlines()[0].replace('commit ', '', 1)
     gpipe.close()
 
-    run = Run(project_url = git_prj_name, git_revision = rev)
+    run = Run(project_name = git_name, project_url = git_url,
+              git_revision = rev)
     run.save()
-    pep8_pipe = os.popen("pep8 %s" % git_prj_path)
-    parse_pep8(run, git_prj_path, pep8_pipe)
+    pep8_pipe = os.popen("pep8 %s" % git_path)
+    parse_pep8(run, git_path, pep8_pipe)
     pep8_pipe.close()
-    os.system("rm -rf %s" % git_prj_path)
+    os.system("rm -rf %s" % tmp_path)
 
-    return (git_prj_name, rev)
+    return (git_name, rev)
