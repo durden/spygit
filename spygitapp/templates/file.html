@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+
 {% block title %} {{filename}} {% endblock %}
 
 {% load syntax_color %}
@@ -9,10 +10,13 @@
             No errors for {{filename}}
         {% else %}
             {% for line in lines %}
-                {{ line.text|colorize:line.line_number}}
+                {% ifequal line.error None %}
+                    {{ line.line_obj.text|colorize:line.line_obj.line_number}}
+                {% else %}
+                    <p id="over">{{ line.line_obj.text|colorize_error:line.line_obj.line_number}}</p>
+                    <p id="error_text"></p>
+                {% endifequal %}
             {% endfor %}
         {% endifequal %}
    </p>
 {% endblock %}
-
-
