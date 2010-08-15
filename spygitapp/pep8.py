@@ -33,7 +33,7 @@ def parse_pep8(run, git_path, output):
 
     # Generate a set of error types, error files, and lines
     for line in output.readlines():
-        filename, lineno, errnum, errtext = string.split(line, ':', 4)
+        filename, lineno, errnum, errtext = string.split(line, ':', 3)
         lineno = int(lineno)
         filename = filename.replace(git_path + '/', '', 1)
 
