@@ -1,14 +1,9 @@
 {% if projects|length %}
-    <table cellspacing="3">
-        <tr>
-            <th>Project Results</th>
-            <th>Project URL</th>
-        </tr>
+    <ul class="clean">
         {% for proj in projects %}
-            <tr>
-                <td><a href="/{{proj.project_name}}/">{{proj.project_name}}</a></td>
-                <td>{{proj.project_url}}</td>
-            </tr>
+            <li>
+                <a href="/{{proj.project_name}}/">{{proj.project_name}}</a>
+            </li>
         {% endfor %}
-    </table>
+    </ul>
 {% endif %}
