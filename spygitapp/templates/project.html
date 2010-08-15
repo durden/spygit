@@ -11,7 +11,7 @@
         <ul>
             {% for file in files %}
                 <li>
-                    <a href="{{url}}/{{file.file_obj.filename}}" class="tag1">{{file.file_obj.filename}}</a>
+                    <a href="{{url}}/{{file.file_obj.filename}}">{{file.file_obj.filename}}</a>
                     (Errors: {{file.errors}})
                 </li>
             {% endfor %}

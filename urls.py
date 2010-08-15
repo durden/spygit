@@ -22,6 +22,8 @@ urlpatterns = patterns('django.views.generic.simple',
     # Debug
     (r'^peptest/$', pep_view, {'template': 'peptest.html'}),
 
+    (r'^projects/$', projects),
+
     # Project navigation
     (r'^(\w+)/(\w+)$', project),
     (r'^(\w+)/$', project_overview),

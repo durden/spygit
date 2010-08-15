@@ -7,6 +7,13 @@ from pep8 import run_pep8
 from spygitapp.models import Error, Run, File, RunError, Line
 
 
+def projects(request):
+    """Display listing of projects"""
+
+    runs = set(Run.objects.all())
+    return render_to_response('projects.html', {'projects': runs})
+
+
 def project_overview(request, project_name):
     """Display overview of an entire project and it's runs"""
 
