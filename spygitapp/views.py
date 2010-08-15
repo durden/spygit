@@ -15,7 +15,7 @@ def project_overview(request, project_name):
     runs = []
 
     # Find all runs and how many errors for each of them
-    for run in Run.objects.filter(project_name__contains=project_name).order_by('date'):
+    for run in Run.objects.filter(project_name=project_name).order_by('date'):
         errors = 0
 
         for file in File.objects.filter(run=run).order_by('filename'):
@@ -32,7 +32,7 @@ def project(request, project_name, rev):
     files = []
 
     # FIXME: This won't work if the same revision is run more than once!
-    file_objs = File.objects.filter(run__project_name__contains=project_name,
+    file_objs = File.objects.filter(run__project_name=project_name,
                                     run__git_revision=rev).order_by('filename')
 
     for file in file_objs:
@@ -60,11 +60,12 @@ def file_detail(request, project_name, rev, filename):
 
 
 def pep_view(request, **view_args):
-    try:
-        if request.method == 'GET':
+    if request.method == 'GET':
+        try:
             (proj_name, rev) = run_pep8(request.GET.get('repo'))
-            return HttpResponseRedirect('/%s/%s/' % (proj_name, rev))
+        except:
+            return redirect('/')
 
-        return HttpResponseRedirect('/')
-    except:
-        return redirect('/')
+        return HttpResponseRedirect('/%s/%s/' % (proj_name, rev))
+
+    return HttpResponseRedirect('/')
