@@ -1,5 +1,18 @@
 ** First time setup information **
 
+** Non-virtualenv install **
+
+- Install python 2.6
+- Install setuptools
+    - Download project from: http://pypi.python.org/pypi/setuptools#files
+    - Run the following: sh setuptools-0.6c9-py2.4.egg (replace with egg file from above)
+- install pip
+    - 'easy_install pip'
+- Use pip to install all project dependencies
+    - pip install -r requirements.pip (replace with location of file from this project)
+
+** Install with virtualenv **
+
 - Use python 2.6
 - Install virtualenv
     - easy_install virtualenv
@@ -19,7 +32,7 @@
         - Thus, this file will have to be committed.
 
 
-** Normal workflow **
+** Normal virtualenv workflow **
 - Activate/switch to using virtualenv
     - source ~/.virtualenvs/spygit_test/bin/activate
 - Setup virtualenvwrapper.sh scripts
