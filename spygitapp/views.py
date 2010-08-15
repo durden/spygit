@@ -49,7 +49,7 @@ djangodash_urls = list([
 
 
 def home(request):
-    runs = set(Run.objects.all().order_by('date')[0:3])
+    runs = set(Run.objects.all().order_by('-date')[0:3])
     total_projects = len(set(Run.objects.all()))
     max_errors = 0
     worst_proj = ""
