@@ -52,6 +52,7 @@ fieldset#form {
     top: -50px;
     clear: both;
     margin: 0px 50px;
+    padding: 20px 0px 0px 0px;
 }
 
 #footer {

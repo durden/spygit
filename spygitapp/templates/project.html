@@ -2,11 +2,12 @@
 
 {% block title %}
     {% if files %}
-        {{files.0.run.project_name}} {{files.0.run.git_revision}}
+        {{files.0.file_obj.run.project_name}} {{files.file_obj.0.run.git_revision}}
     {% endif %}
 {% endblock %}
 
 {% block content %}
+    <a href="/{{files.0.file_obj.run.project_name}}/">{{files.0.file_obj.run.project_name}}/</a>
     <ul>
         {% for file in files %}
             <li>

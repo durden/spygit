@@ -86,10 +86,13 @@ def file_detail(request, project_name, rev, filename):
 
         lines.append({'line_obj': line, 'error': error})
 
-    # Pass this b/c if there are no errors there will be no lines, so can't
-    # show the filename
+    url = "/%s/%s" % (project_name, rev)
+
+    # Pass filename b/c if there are no errors there will be no lines, so can't
+    # show it
     return render_to_response('file.html',
-                              {'lines': lines, 'filename': filename})
+                              {'lines': lines, 'filename': filename,
+                                'url': url})
 
 
 def pep_view(request, **view_args):
