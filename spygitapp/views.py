@@ -42,7 +42,7 @@ def project_overview(request, project_name):
     return render_to_response('project_overview.html', {'runs': runs})
 
 
-def project(request, project_name, rev):
+def project(request, project_name, rev, full_listing=True):
     """Display full project layout given a specific revision"""
 
     files = []
@@ -56,7 +56,10 @@ def project(request, project_name, rev):
         for error in RunError.objects.filter(file=file):
             errors = errors + 1
 
-        files.append({'file_obj': file, 'errors': errors})
+        if not full_listing and errors:
+            files.append({'file_obj': file, 'errors': errors})
+        elif full_listing:
+            files.append({'file_obj': file, 'errors': errors})
 
     if not len(files):
         raise Http404
@@ -127,10 +130,13 @@ def file_detail(request, project_name, rev, filename):
 
         lines.append({'line_obj': line, 'error': error})
 
-    # Pass this b/c if there are no errors there will be no lines, so can't
-    # show the filename
+    url = "/%s/%s" % (project_name, rev)
+
+    # Pass filename b/c if there are no errors there will be no lines, so can't
+    # show it
     return render_to_response('file.html',
-                              {'lines': lines, 'filename': filename})
+                              {'lines': lines, 'filename': filename,
+                                'url': url})
 
 
 def pep_view(request, **view_args):

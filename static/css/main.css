@@ -52,6 +52,7 @@ fieldset#form {
     top: -50px;
     clear: both;
     margin: 0px 50px;
+    padding: 20px 0px 0px 0px;
 }
 
 #footer {
@@ -63,6 +64,16 @@ fieldset#form {
     margin: 0px auto;
 }
 
+
+table.proj_overview {
+    border-collapse: collapse;
+}
+
+table.proj_overview td {
+    border-bottom: 1px solid #000000;
+    border-top: 1px solid #000000;
+    padding: 5px 10px;
+}
 
 .error {
     cursor: pointer;
@@ -91,12 +102,34 @@ h2 {
 }
 
 h3 {
-    color: #3a9f68;
+    color: #266844;
     font-size: 15pt;
 }
 
 h4 {
-    color: #3a9f68;
+    color: #266844;
     font-size: 14pt;
+}
+
+h5 {
+    color: #266844;
+    font-size: 12pt;
+}
+
+h3 a, h3 a:link, h3 a:active, h3 a:visited {
+    color: #3a9f68;
+}
+
+ul.filelist {
+    list-style-type: none;
+}
+
+p.share {
+    margin: 50px 0px 0px 0px;
+    text-align: center;
+}
+
+.filelist li {
+    line-height: 200%;
 }
 
