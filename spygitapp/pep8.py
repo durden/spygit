@@ -48,7 +48,7 @@ def parse_pep8(run, git_path, output):
                 err.save()
 
         # Create a set of line numbers for each file
-        for ln in range(max(0, lineno - 3), lineno + 4):
+        for ln in range(max(1, lineno - 3), lineno + 4):
             lineno_set.add((filename, ln))
 
         # Add err instances to the db
@@ -100,7 +100,7 @@ def run_pep8(git_url):
     if not old_run:
         run = Run(project_name=git_name, project_url=git_url, git_revision=rev)
         run.save()
-        pep8_pipe = os.popen("pep8 %s" % git_path)
+        pep8_pipe = os.popen("pep8 -r %s" % git_path)
         parse_pep8(run, git_path, pep8_pipe)
         pep8_pipe.close()
 

@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if files %}
+        {{files.0.run.project_name}} {{files.0.run.git_revision}}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% if files|length %}
+        <ul id="cloud">
+            {% for file in files %}
+                {% if file.errors %}
+                    <li>
+                        <a href="{{url}}/{{file.file_obj.filename}}" class="tag{{file.weight}}">{{file.file_obj.filename}}</a>
+                        ({{file.errors}} errors)
+                    </li>
+                {% endif %}
+            {% endfor %}
+            ({{total}} errors in all)
+        </ul>
+    {% endif %}
+{% endblock %}
+
