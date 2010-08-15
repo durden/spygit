@@ -66,6 +66,6 @@ def pep_view(request, **view_args):
         except:
             return redirect('/')
 
-        return HttpResponseRedirect('/%s/%s/' % (proj_name, rev))
+        return HttpResponseRedirect('/%s/%s' % (proj_name, rev))
 
     return HttpResponseRedirect('/')
