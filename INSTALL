@@ -11,6 +11,19 @@
 - Use pip to install all project dependencies
     - pip install -r requirements.pip (replace with location of file from this project)
 
+- Clone project
+    - git clone git://github.com/durden/spygit.git
+
+- Go into project directory
+
+- Create DB
+    - Requires sqlite, but you are already using python 2.6 so shouldn't be
+      a problem
+    - python manage.py sncydb
+
+- Start it up
+    - python manage.py runserver
+
 ** Install with virtualenv **
 
 - Use python 2.6
@@ -31,6 +44,18 @@
           to our templatetags directory
         - Thus, this file will have to be committed.
 
+- Clone project
+    - git clone git://github.com/durden/spygit.git
+
+- Go into project directory
+
+- Create DB
+    - Requires sqlite, but you are already using python 2.6 so shouldn't be
+      a problem
+    - python manage.py sncydb
+
+- Start it up
+    - python manage.py runserver
 
 ** Normal virtualenv workflow **
 - Activate/switch to using virtualenv
