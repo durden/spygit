@@ -19,7 +19,8 @@
                 <a href="/{{run.run_obj.project_name}}/{{run.run_obj.git_revision}}">
                     {{run.run_obj.git_revision}}</a></td>
                 <td>{{run.run_obj.date|date:"m-d-Y P"}}</td>
-                <td>{{run.errors}}</td>
+                <td><a href="/{{run.run_obj.project_name}}/{{run.run_obj.git_revision}}/errors">
+                    {{run.errors}}</a></td>
             </tr>
         {% endfor %}
     </table>
