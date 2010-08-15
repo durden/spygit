@@ -19,13 +19,13 @@ urlpatterns = patterns('django.views.generic.simple',
     # Admin
     (r'^admin/', include(admin.site.urls)),
 
+    # Debug
+    (r'^peptest/$', pep_view, {'template': 'peptest.html'}),
+
     # Project navigation
     (r'^(\w+)/(\w+)$', project),
     (r'^(\w+)/$', project_overview),
     (r'^(\w+)/(\w+)/([a-zA-Z0-9_\/.]+)/$', file_detail),
-
-    # Debug
-    (r'^peptest/$', pep_view, {'template': 'peptest.html'}),
 )
 
 if settings.DEBUG:
