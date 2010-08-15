@@ -64,6 +64,16 @@ fieldset#form {
 }
 
 
+table.proj_overview {
+    border-collapse: collapse;
+}
+
+table.proj_overview td {
+    border-bottom: 1px solid #000000;
+    border-top: 1px solid #000000;
+    padding: 5px 10px;
+}
+
 .error {
     cursor: pointer;
 }

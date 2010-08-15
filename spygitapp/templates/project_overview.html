@@ -6,14 +6,21 @@
 {% endblock %}
 
 {% block content %}
-    <ul>
+    <table class="proj_overview">
+        <thead>
+            <tr>
+                <th>Revision</th>
+                <th>Spy'ed Date</th>
+                <th>Errors</th>
+            </tr>
         {% for run in runs %}
-            <li>
+            <tr>
+                <td>
                 <a href="/{{run.run_obj.project_name}}/{{run.run_obj.git_revision}}">
-                    {{run.run_obj.git_revision}}</a>
-                {{run.run_obj.date|date:"m-d-Y P"}}
-                <span>Errors: {{run.errors}}</span>
-            </li>
+                    {{run.run_obj.git_revision}}</a></td>
+                <td>{{run.run_obj.date|date:"m-d-Y P"}}</td>
+                <td>{{run.errors}}</td>
+            </tr>
         {% endfor %}
-    </ul>
+    </table>
 {% endblock %}
