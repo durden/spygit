@@ -5,16 +5,20 @@
 {% load syntax_color %}
 
 {% block content %}
-    <a href="{{url}}">{{url}}</a>
-<script type="text/javascript">
- $(document).ready(function() {
-   $(".errortext").hide();
-   $(".error").click(function() {
-    $(this).children(".errortext").slideToggle('fast');
-  });
- });
-</script>
-   <p>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".errortext").hide();
+            $(".error").click(function() {
+                $(this).children(".errortext").slideToggle('fast');
+            });
+        });
+    </script>
+
+    <h3><a href="{{url}}">{{url}}</a></h3>
+
+    <h5>Click error boxes to see PEP8 complaints.</h5>
+
+    <p>
         {% ifequal lines|length 0 %}
             No errors for {{filename}}
         {% else %}
