@@ -3,15 +3,7 @@
 {% block title %} Projects {% endblock %}
 
 {% block content %}
-    {% if projects|length %}
-        <ul>
-            {% for proj in projects %}
-                <li>
-                    <a href="/{{proj.project_name}}/">{{proj.project_name}}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    {% include 'project_listing.html' %}
 {% endblock %}
 
 
