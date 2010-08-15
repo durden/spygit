@@ -2,9 +2,62 @@ from django.shortcuts import render_to_response
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect, Http404
 from django.core.exceptions import ObjectDoesNotExist
+from random import randint
 
 from pep8 import run_pep8
 from spygitapp.models import Error, Run, File, RunError, Line
+
+djangodash_urls = list([
+    "git://github.com/juanodicio/Destino",
+    "git://github.com/beetletweezers/tweezers",
+    "git://bitbucket.org/beproud/eventstream/",
+    "git://github.com/kennyshen/buzzfire",
+    "git://github.com/bubly/Bub.ly",
+    "git://github.com/durden/spygit",
+    "git://github.com/tereno/DjangoDash",
+    "git://github.com/notanumber/slurpie",
+    "git://bitbucket.org/citrus/ratemyflight",
+    "git://github.com/igorsobreira/wifimap",
+    "git://github.com/chronossc/dashline",
+    "git://github.com/durbin/djangodash",
+    "git://github.com/lukeman/django-dash-2010",
+    "git://github.com/elegion/voices-in-the-head",
+    "git://github.com/brianmacdonald/djangodash10",
+    "git://github.com/badri",
+    "git://github.com/etown/GiantPangolin",
+    "git://github.com/edorian/Build-your-own-Textadventure",
+    "git://github.com/hashfeedr/hashfeedr",
+    "git://github.com/LeanIntoIt/tubez",
+    "git://github.com/stephrdev/loetwerk",
+    "git://github.com/markraddatz/djangodash2010",
+    "git://github.com/sirmmo/UrbanFabric",
+    "git://github.com/moxypark/transphorm.me",
+    "git://github.com/frac/djangodash2010",
+    "git://github.com/justinlilly/permachart",
+    "git://github.com/sebleier/Left-Break",
+    "git://github.com/nnrcschmdt/Django-Dash-2010",
+    "git://github.com/playpauseandstop/try-django",
+    "git://github.com/ericflo/servertail",
+    "git://github.com/jibaku/dashed2010",
+    "git://github.com/eppsilon/beavers",
+    "git://github.com/zain/heatboats",
+    "git://github.com/pydanny/scaredofrabbits",
+    "git://github.com/threadsafelabs/crywolf",
+    "git://github.com/jtauber/team566",
+    "git://github.com/alex-morega/djangodash",
+    "git://github.com/jmibanez/DjangoDash",
+    "git://github.com/ddosen/FoodTruckTrak",
+    "git://github.com/gulopine/frankenboxen",
+    "git://github.com/jezdez/holt",
+    "git://github.com/dlo/nightwriters",
+    "git://github.com/bnmrrs/PhoneTap",
+    "git://github.com/malcolmt/remember_me",
+    "git://github.com/robotblake/dash10",
+    "git://github.com/TripleLabel/tapz",
+    "git://github.com/garybernhardt/wandercorrect",
+    "git://github.com/pnomolos/Django-Dash-2010",
+    "git://github.com/brixtonasias/groshlist",
+    "git://github.com/codysoyland/snowman"])
 
 
 def home(request):
@@ -24,10 +77,12 @@ def home(request):
             worst_proj = run
             max_errors = errors
 
-    return render_to_response('home.html', {'projects': runs,
-                                    'total_projects': total_projects,
-                                    'worst_proj': worst_proj,
-                                    'max_errors': max_errors})
+    return render_to_response('home.html',
+         {'projects': runs,
+          'total_projects': total_projects,
+          'worst_proj': worst_proj,
+          'max_errors': max_errors,
+          'default_url': djangodash_urls[randint(0, len(djangodash_urls)-1)]})
 
 
 def projects(request):
