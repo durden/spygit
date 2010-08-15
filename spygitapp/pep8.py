@@ -91,10 +91,14 @@ def run_pep8(git_url):
     rev = gpipe.readlines()[0].replace('commit ', '', 1)
     gpipe.close()
 
-    run = Run(project_name = git_name, project_url = git_url,
-              git_revision = rev)
-    run.save()
-    pep8_pipe = os.popen("pep8 %s" % git_path)
-    parse_pep8(run, git_path, pep8_pipe)
-    pep8_pipe.close()
+    # Do not allow duplicates of the same project/rev
+    old_run = Run.objects.filter(project_name = git_name, git_revision = rev)
+    if not old_run:
+        run = Run(project_name = git_name, project_url = git_url,
+                  git_revision = rev)
+        run.save()
+        pep8_pipe = os.popen("pep8 %s" % git_path)
+        parse_pep8(run, git_path, pep8_pipe)
+        pep8_pipe.close()
+
     os.system("rm -rf %s" % tmp_path)
