@@ -225,7 +225,7 @@ def pep_view(request, **view_args):
         try:
             (proj_name, rev) = run_pep8(request.GET.get('repo'))
         except:
-            return redirect('/')
+            raise Http404
 
         return HttpResponseRedirect('/%s/%s' % (proj_name, rev))
 
