@@ -125,7 +125,7 @@ def file_detail(request, project_name, rev, filename):
 
         # Just report the first error... We may want to improve this later
         if len(error):
-            error = error[0].error
+            error = error[0].error_descr
         else:
             error = None
 

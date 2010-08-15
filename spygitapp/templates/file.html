@@ -27,7 +27,7 @@
                     {{ line.line_obj.text|colorize:line.line_obj.line_number}}
                 {% else %}
                     <div class="error">{{ line.line_obj.text|colorize_error:line.line_obj.line_number}}
-                    <div class="errortext">{{line.error.short_descr}}</div>
+                    <div class="errortext">{{line.error}}</div>
 </div>
                 {% endifequal %}
             {% endfor %}
