@@ -69,6 +69,49 @@ def project(request, project_name, rev, full_listing=True):
     return render_to_response('project.html', {'files': files, 'url': url})
 
 
+def project_cloud(request, project_name, rev):
+    """Display full project layout given a specific revision"""
+
+    files = []
+
+    file_objs = File.objects.filter(run__project_name=project_name,
+                                    run__git_revision=rev).order_by('filename')
+
+    max_errors = 0
+    total = 0
+
+    for file in file_objs:
+        errors = 0
+
+        for error in RunError.objects.filter(file=file):
+            errors = errors + 1
+            total = total + 1
+
+        if errors > max_errors:
+            max_errors = errors
+
+    for file in file_objs:
+        errors = 0
+
+        for error in RunError.objects.filter(file=file):
+            errors = errors + 1
+
+        if max_errors:
+            weight = int(errors * 10 / max_errors)
+        else:
+            weight = 0
+
+        files.append({'file_obj': file, 'errors': errors, 'weight': weight})
+
+    if not len(files):
+        raise Http404
+
+    # Just build this here b/c its a bit easier
+    url = "/%s/%s" % (project_name, rev)
+    return render_to_response('project_cloud.html',
+                              {'files': files, 'url': url, 'total': total})
+
+
 def file_detail(request, project_name, rev, filename):
     lines = []
     file = File.objects.get(run__project_name__contains=project_name,
@@ -82,7 +125,7 @@ def file_detail(request, project_name, rev, filename):
 
         # Just report the first error... We may want to improve this later
         if len(error):
-            error = error[0].error
+            error = error[0].error_descr
         else:
             error = None
 

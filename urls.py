@@ -25,6 +25,7 @@ urlpatterns = patterns('django.views.generic.simple',
     (r'^projects/$', projects),
 
     # Project navigation
+    (r'^([a-zA-Z0-9_\.\-]+)/(\w+)/cloud$', project_cloud),
     (r'^([a-zA-Z0-9_\.\-]+)/(\w+)$', project),
     (r'^([a-zA-Z0-9_\.\-]+)/(\w+)/errors/$', project, {'full_listing': False}),
     (r'^([a-zA-Z0-9_\.\-]+)/$', project_overview),
