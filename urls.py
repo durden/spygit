@@ -25,7 +25,7 @@ urlpatterns = patterns('django.views.generic.simple',
     # Project navigation
     (r'^(\w+)/(\w+)$', project),
     (r'^(\w+)/$', project_overview),
-    (r'^(\w+)/(\w+)/([a-zA-Z0-9_\/.]+)/$', file_detail),
+    (r'^(\w+)/(\w+)/([a-zA-Z0-9_\/.\-]+)/$', file_detail),
 )
 
 if settings.DEBUG:
