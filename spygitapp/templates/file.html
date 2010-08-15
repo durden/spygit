@@ -13,8 +13,7 @@
                 {% ifequal line.error None %}
                     {{ line.line_obj.text|colorize:line.line_obj.line_number}}
                 {% else %}
-                    <p id="over">{{ line.line_obj.text|colorize_error:line.line_obj.line_number}}</p>
-                    <p id="error_text"></p>
+                    {{ line.line_obj.text|colorize_error:line.line_obj.line_number}}
                 {% endifequal %}
             {% endfor %}
         {% endifequal %}

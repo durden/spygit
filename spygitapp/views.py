@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
 from django.shortcuts import redirect
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.core.exceptions import ObjectDoesNotExist
 
 from pep8 import run_pep8
@@ -36,6 +36,9 @@ def project_overview(request, project_name):
 
         runs.append({'run_obj': run, 'errors': errors})
 
+    if not len(runs):
+        raise Http404
+
     return render_to_response('project_overview.html', {'runs': runs})
 
 
@@ -54,6 +57,9 @@ def project(request, project_name, rev):
             errors = errors + 1
 
         files.append({'file_obj': file, 'errors': errors})
+
+    if not len(files):
+        raise Http404
 
     # Just build this here b/c its a bit easier
     url = "/%s/%s" % (project_name, rev)
@@ -76,7 +82,6 @@ def file_detail(request, project_name, rev, filename):
             error = None
 
         lines.append({'line_obj': line, 'error': error})
-    #assert False
 
     # Pass this b/c if there are no errors there will be no lines, so can't
     # show the filename

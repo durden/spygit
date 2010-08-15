@@ -7,15 +7,13 @@
 {% endblock %}
 
 {% block content %}
-    {% if files|length %}
-        <ul>
-            {% for file in files %}
-                <li>
-                    <a href="{{url}}/{{file.file_obj.filename}}">{{file.file_obj.filename}}</a>
-                    (Errors: {{file.errors}})
-                </li>
-            {% endfor %}
-        </ul>
-    {% endif %}
+    <ul>
+        {% for file in files %}
+            <li>
+                <a href="{{url}}/{{file.file_obj.filename}}">{{file.file_obj.filename}}</a>
+                (Errors: {{file.errors}})
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}
 
