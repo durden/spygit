@@ -14,7 +14,7 @@
         });
     </script>
 
-    <h3><a href="{{url}}">{{url}}</a></h3>
+    <a href="{{url}}">{{url}}</a>
 
     <h5>Click error boxes to see PEP8 complaints.</h5>
 
@@ -27,7 +27,10 @@
                     {{ line.line_obj.text|colorize:line.line_obj.line_number}}
                 {% else %}
                     <div class="error">{{ line.line_obj.text|colorize_error:line.line_obj.line_number}}
-                    <div class="errortext">{{line.error}}</div>
+                    <div class="errortext">
+                        {{line.error}}<br><br>
+                        Read the <a href="http://www.python.org/dev/peps/pep-0008/">standard</a> for more information.
+                    </div>
 </div>
                 {% endifequal %}
             {% endfor %}

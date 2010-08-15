@@ -1,0 +1,7 @@
+- Handle big project uploads
+- Limit project upload sizes
+- Add line counts for projects
+- Add stats for rating projects based on errors to number of lines ratio
+- Paginate pages with lots of errors
+- Allow project processing to happen in background
+- Add AJAX to poll project processing and show progress bar

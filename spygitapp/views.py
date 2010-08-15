@@ -9,7 +9,25 @@ from spygitapp.models import Error, Run, File, RunError, Line
 
 def home(request):
     runs = set(Run.objects.all().order_by('date')[0:3])
-    return render_to_response('home.html', {'projects': runs})
+    total_projects = len(set(Run.objects.all()))
+    max_errors = 0
+    worst_proj = ""
+
+    # Find all the projects and find the ones with most errors
+    for run in Run.objects.all():
+        errors = 0
+
+        for file in File.objects.filter(run=run).order_by('filename'):
+            errors += len(RunError.objects.filter(file=file))
+
+        if errors and errors > max_errors:
+            worst_proj = run
+            max_errors = errors
+
+    return render_to_response('home.html', {'projects': runs,
+                                    'total_projects': total_projects,
+                                    'worst_proj': worst_proj,
+                                    'max_errors': max_errors})
 
 
 def projects(request):
@@ -21,9 +39,6 @@ def projects(request):
 
 def project_overview(request, project_name):
     """Display overview of an entire project and it's runs"""
-
-    # FIXME: Don't want to use __contains here once the name isn't the same as
-    #        the project url
 
     runs = []
 
