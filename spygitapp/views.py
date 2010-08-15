@@ -29,7 +29,6 @@ djangodash_urls = list([
     "git://github.com/hashfeedr/hashfeedr",
     "git://github.com/LeanIntoIt/tubez",
     "git://github.com/stephrdev/loetwerk",
-    "git://github.com/markraddatz/djangodash2010",
     "git://github.com/sirmmo/UrbanFabric",
     "git://github.com/moxypark/transphorm.me",
     "git://github.com/frac/djangodash2010",
