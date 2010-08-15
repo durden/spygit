@@ -93,3 +93,5 @@ def run_pep8(git_prj_name):
     parse_pep8(run, git_prj_path, pep8_pipe)
     pep8_pipe.close()
     os.system("rm -rf %s" % git_prj_path)
+
+    return (git_prj_name, rev)

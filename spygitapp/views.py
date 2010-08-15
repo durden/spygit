@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response
 from django.shortcuts import redirect
+from django.http import HttpResponseRedirect
 
 from pep8 import run_pep8
 from spygitapp.models import Error, Run, File, RunError, Line
@@ -61,7 +62,9 @@ def file_detail(request, project_name, rev, filename):
 def pep_view(request, **view_args):
     try:
         if request.method == 'GET':
-            run_pep8(request.GET.get('repo'))
-        return render_to_response('peptest.html')
+            (proj_name, rev) = run_pep8(request.GET.get('repo'))
+            return HttpResponseRedirect('/%s/%s/' % (proj_name, rev))
+
+        return HttpResponseRedirect('/')
     except:
         return redirect('/')
