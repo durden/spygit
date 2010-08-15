@@ -63,6 +63,11 @@ fieldset#form {
     margin: 0px auto;
 }
 
+
+.error {
+    cursor: pointer;
+}
+
 h1.logo {
     position: relative;
     height: 0px;

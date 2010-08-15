@@ -5,6 +5,14 @@
 {% load syntax_color %}
 
 {% block content %}
+<script type="text/javascript">
+ $(document).ready(function() {
+   $(".errortext").hide();
+   $(".error").click(function() {
+    $(this).children(".errortext").slideToggle('fast');
+  });
+ });
+</script>
    <p>
         {% ifequal lines|length 0 %}
             No errors for {{filename}}
@@ -13,7 +21,9 @@
                 {% ifequal line.error None %}
                     {{ line.line_obj.text|colorize:line.line_obj.line_number}}
                 {% else %}
-                    {{ line.line_obj.text|colorize_error:line.line_obj.line_number}}
+                    <div class="error">{{ line.line_obj.text|colorize_error:line.line_obj.line_number}}
+                    <div class="errortext">{{line.error.short_descr}}</div>
+</div>
                 {% endifequal %}
             {% endfor %}
         {% endifequal %}
