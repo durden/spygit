@@ -102,12 +102,34 @@ h2 {
 }
 
 h3 {
-    color: #3a9f68;
+    color: #266844;
     font-size: 15pt;
 }
 
 h4 {
-    color: #3a9f68;
+    color: #266844;
     font-size: 14pt;
+}
+
+h5 {
+    color: #266844;
+    font-size: 12pt;
+}
+
+h3 a, h3 a:link, h3 a:active, h3 a:visited {
+    color: #3a9f68;
+}
+
+ul.filelist {
+    list-style-type: none;
+}
+
+p.share {
+    margin: 50px 0px 0px 0px;
+    text-align: center;
+}
+
+.filelist li {
+    line-height: 200%;
 }
 
