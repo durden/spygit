@@ -36,7 +36,7 @@ fieldset#form {
 
 #form input.field {
     height: 45px;
-    width: 500px;
+    width: 90%;
     font-size: 17pt;
 }
 
@@ -44,7 +44,7 @@ fieldset#form {
     width: 100px;
     margin: 20px 0px 0px 0px;
     position: relative;
-    left: 400px;
+    left: 80%;
 }
 
 #content {
