@@ -79,8 +79,7 @@ def run_pep8(git_url):
 
     st = os.system("cd %s && git clone %s" % (tmp_path, git_url))
     if st != 0:
-        raise StandardError
-        return
+        raise Exception("Unable to find project, please check git url")
 
     # get the project name from the top level directory
     git_name = os.listdir(tmp_path)[0]
@@ -89,8 +88,9 @@ def run_pep8(git_url):
     # grab the git revision
     gpipe = os.popen("cd %s && git --no-pager log --max-count=1" % git_path)
     if st != 0:
-        raise StandardError
-        return
+        raise Exception("Unable to find HEAD revision for project, "
+                        "please check project")
+
     rev = gpipe.readlines()[0].replace('commit ', '', 1)
     rev = rev.strip('\n')
     gpipe.close()
