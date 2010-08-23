@@ -175,11 +175,14 @@ def file_detail(request, project_name, rev, filename):
 
 def pep_view(request, **view_args):
     if request.method == 'GET':
-        try:
-            (proj_name, rev) = run_pep8(request.GET.get('repo'))
-        except:
-            raise Http404
+        form = ProjectForm(request.GET)
 
-        return HttpResponseRedirect('/%s/%s' % (proj_name, rev))
+        if form.is_valid():
+            try:
+                (proj_name, rev) = run_pep8(form.cleaned_data['url'])
+            except:
+                raise Http404
+
+            return HttpResponseRedirect('/%s/%s' % (proj_name, rev))
 
     return HttpResponseRedirect('/')
