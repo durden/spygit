@@ -2,6 +2,7 @@ from random import randint
 
 from django import forms
 
+
 class ProjectForm(forms.Form):
     djangodash_urls = list([
         "git://github.com/juanodicio/Destino",
@@ -45,4 +46,3 @@ class ProjectForm(forms.Form):
 
     url = forms.CharField(max_length=500, initial=djangodash_urls[
                             randint(0, len(djangodash_urls) - 1)])
-
