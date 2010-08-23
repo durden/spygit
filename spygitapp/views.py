@@ -9,8 +9,8 @@ from forms import ProjectForm
 
 
 def home(request):
-    runs = set(Run.objects.all().order_by('-date')[0:3])
-    total_projects = len(set(Run.objects.all()))
+    runs = Run.objects.all().order_by('-date').values("project_name").distinct()
+    total_projects = runs.count()
     max_errors = 0
     worst_proj = ""
 
@@ -28,7 +28,7 @@ def home(request):
     form = ProjectForm()
 
     return render_to_response('home.html',
-         {'projects': runs,
+         {'projects': runs[0:3],
           'total_projects': total_projects,
           'worst_proj': worst_proj,
           'max_errors': max_errors,
