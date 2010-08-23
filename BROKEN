@@ -1,5 +1,3 @@
-- Our error handling is pretty weak so if we can't download the git repo for some reason we
-  are just sending users to 404.
 - You might not have the pep8 script in your path if you keep seeing projects without any
   pep errors.
 - We are randomly picking a dash project to auto-fill in the upload form with.  Thus, some
