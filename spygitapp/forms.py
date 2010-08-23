@@ -1,6 +1,7 @@
 from random import randint
 
 from django import forms
+import git_help
 
 
 class ProjectForm(forms.Form):
@@ -46,3 +47,17 @@ class ProjectForm(forms.Form):
 
     url = forms.CharField(max_length=500, initial=djangodash_urls[
                             randint(0, len(djangodash_urls) - 1)])
+
+    def clean_url(self):
+        """Make sure the project can be retrieved, etc."""
+
+        # Mask the errors as validation error so they show up on forms easily
+        try:
+            self.path, self.name = git_help.git_clone(self.cleaned_data['url'])
+            self.rev = git_help.git_head_revision(self.path)
+        except Exception, e:
+            raise forms.ValidationError(e)
+
+        # Custom form validation requires that your clean methods return the
+        # data even if you don't change it!
+        return self.cleaned_data['url']
