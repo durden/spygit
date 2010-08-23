@@ -21,12 +21,12 @@ def git_clone(url):
     return git_path, git_name
 
 
-def git_head_revision(proj_path):
+def git_head_revision(proj):
     """Get the HEAD revision of given project"""
 
     # FIXME: Not very good should probably look for specific exceptions here
     try:
-        gpipe = os.popen("cd %s && git --no-pager log --max-count=1" % proj_path)
+        gpipe = os.popen("cd %s && git --no-pager log --max-count=1" % proj)
         rev = gpipe.readlines()[0].replace('commit ', '', 1)
         rev = rev.strip('\n')
         gpipe.close()
