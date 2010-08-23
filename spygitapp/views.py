@@ -38,7 +38,7 @@ def home(request):
 def projects(request):
     """Display listing of projects"""
 
-    runs = set(Run.objects.all())
+    runs = Run.objects.all().order_by("project_name").values("project_name").distinct()
     return render_to_response('projects.html', {'projects': runs})
 
 
