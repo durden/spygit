@@ -8,7 +8,8 @@ from spygitapp.models import Error, Run, File, RunError, Line
 from forms import ProjectForm
 
 
-def home(request):
+def __show_home(form):
+    """Show homepage"""
     runs = Run.objects.all().order_by('-date').values("project_name").distinct()
     total_projects = runs.count()
     max_errors = 0
@@ -25,14 +26,16 @@ def home(request):
             worst_proj = run
             max_errors = errors
 
-    form = ProjectForm()
-
     return render_to_response('home.html',
          {'projects': runs[0:3],
           'total_projects': total_projects,
           'worst_proj': worst_proj,
           'max_errors': max_errors,
           'form': form})
+
+
+def home(request):
+    return __show_home(ProjectForm())
 
 
 def projects(request):
@@ -181,4 +184,4 @@ def pep_view(request, **view_args):
             run_pep8(form.cleaned_data['url'], form.path, form.name, form.rev)
             return HttpResponseRedirect('/%s/%s' % (form.name, form.rev))
 
-    return render_to_response('home.html', {'form': form})
+    return __show_home(form)
