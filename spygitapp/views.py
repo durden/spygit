@@ -178,11 +178,7 @@ def pep_view(request, **view_args):
         form = ProjectForm(request.GET)
 
         if form.is_valid():
-            try:
-                (proj_name, rev) = run_pep8(form.cleaned_data['url'])
-            except:
-                raise Http404
+            run_pep8(form.cleaned_data['url'], form.path, form.name, form.rev)
+            return HttpResponseRedirect('/%s/%s' % (form.name, form.rev))
 
-            return HttpResponseRedirect('/%s/%s' % (proj_name, rev))
-
-    return HttpResponseRedirect('/')
+    return render_to_response('home.html', {'form': form})
