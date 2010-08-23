@@ -34,7 +34,7 @@ fieldset#form {
     padding-left: 20px;
 }
 
-#form input.field {
+#form input#id_url {
     height: 45px;
     width: 90%;
     font-size: 17pt;
