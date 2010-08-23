@@ -40,6 +40,11 @@ fieldset#form {
     font-size: 17pt;
 }
 
+#form .errorlist {
+    list-style-type: none;
+    color: #dd0000;
+}
+
 #form input.button {
     width: 100px;
     margin: 20px 0px 0px 0px;
