@@ -6,7 +6,6 @@ import tempfile
 from fnmatch import fnmatch
 
 from models import Error, Run, File, RunError, Line
-import git_help
 
 
 def add_file_to_set(myset, dirname, fnames):
@@ -74,21 +73,16 @@ def parse_pep8(run, git_path, output):
         f.close()
 
 
-def run_pep8(git_url):
+def run_pep8(git_url, path, name, rev):
     """Check out the git project, run pep8, store the results"""
-
-    git_path, name = git_help.git_clone(git_url)
-    rev = git_help.git_head_revision(git_path)
 
     # Do not allow duplicates of the same project/rev
     old_run = Run.objects.filter(project_name=name, git_revision=rev)
     if not old_run:
         run = Run(project_name=name, project_url=git_url, git_revision=rev)
         run.save()
-        pep8_pipe = os.popen("pep8 -r %s" % git_path)
-        parse_pep8(run, git_path, pep8_pipe)
+        pep8_pipe = os.popen("pep8 -r %s" % path)
+        parse_pep8(run, path, pep8_pipe)
         pep8_pipe.close()
 
-    os.system("rm -rf %s" % os.path.dirname(git_path))
-
-    return (name, rev)
+    os.system("rm -rf %s" % os.path.dirname(path))
