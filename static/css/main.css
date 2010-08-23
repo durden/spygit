@@ -41,6 +41,8 @@ fieldset#form {
 }
 
 #form .errorlist {
+    margin: 0px;
+    padding: 0px;
     list-style-type: none;
     color: #dd0000;
 }
